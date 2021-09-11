@@ -26,7 +26,7 @@ services:
       context: ./containers/nginx
     restart: 'always'
     volumes:
-      - ${REPOS_DIR:-./../Work}:/repos
+      - ${REPOS_DIR:-./repos}:/repos
       - ./resources/ca:/ca
     ports:
       - 80:80
@@ -41,7 +41,7 @@ services:
       context: ./containers/php/80
     restart: 'always'
     volumes:
-      - ${REPOS_DIR:-./../Work}:/repos
+      - ${REPOS_DIR:-./repos}:/repos
     working_dir: /repos
     networks:
       skynet:
@@ -49,6 +49,33 @@ services:
     dns: 10.0.10.10
     depends_on:
       - dns_private
+
+  php74:
+    container_name: php74
+    build:
+      context: ./containers/php/74
+    restart: 'always'
+    volumes:
+      - ${REPOS_DIR:-./repos}:/repos
+    working_dir: /repos
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.74
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+
+  mailhog:
+    container_name: mailhog
+    build:
+      context: ./containers/mailhog
+    restart: 'always'
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.20
 
 networks:
   skynet:
