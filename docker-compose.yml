@@ -6,6 +6,8 @@ services:
     build:
       context: ./containers/dns/private
     restart: 'always'
+    ports:
+      - 5352:8080
     dns: 1.1.1.1
     networks:
       skynet:
@@ -17,7 +19,8 @@ services:
       context: ./containers/dns/public
     restart: 'always'
     ports:
-      - 127.0.0.1:53:53/udp
+      - "53:53/udp"
+      - 5353:8080
     dns: 1.1.1.1
 
   nginx:
@@ -88,7 +91,6 @@ services:
     restart: 'always'
     ports:
       - 1025:1025
-      - 8025:8025
     networks:
       skynet:
         ipv4_address: 10.0.10.20
