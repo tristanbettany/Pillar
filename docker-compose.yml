@@ -93,6 +93,19 @@ services:
       skynet:
         ipv4_address: 10.0.10.20
 
+  node:
+    container_name: node
+    build:
+      context: ./containers/node
+    restart: 'always'
+    ports:
+      - 8080:8080
+    volumes:
+      - ${REPOS_DIR:-./repos}:/repos
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.22
+
 networks:
   skynet:
     driver: bridge
