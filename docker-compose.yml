@@ -65,6 +65,22 @@ services:
     depends_on:
       - dns_private
 
+  mysql:
+    container_name: mysql
+    build:
+      context: ./containers/mysql
+    restart: 'always'
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.21
+
   mailhog:
     container_name: mailhog
     build:
@@ -85,3 +101,6 @@ networks:
     ipam:
       config:
         - subnet: 10.0.10.0/24
+
+volumes:
+  mysql_data:
