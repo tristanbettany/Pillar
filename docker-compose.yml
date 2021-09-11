@@ -108,6 +108,53 @@ services:
       skynet:
         ipv4_address: 10.0.10.22
 
+  zookeeper:
+    container_name: zookeeper
+    build:
+      context: ./containers/zookeeper
+    restart: 'always'
+    ports:
+      - 2181:2181
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.23
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+
+  kafka:
+    container_name: kafka
+    build:
+      context: ./containers/kafka
+    restart: 'always'
+    ports:
+      - 9092:9092
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.24
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+      - zookeeper
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper.test:2181
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+
+  akhq:
+    container_name: akhq
+    build:
+      context: ./containers/akhq
+    restart: 'always'
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.25
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+      - kafka
+
 networks:
   skynet:
     driver: bridge
