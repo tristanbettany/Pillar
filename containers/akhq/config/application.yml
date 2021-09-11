@@ -15,4 +15,4 @@ akhq:
   connections:
     pillar: # url friendly name for the cluster (letter, number, _, -, ... dot are not allowed here)
       properties: # standard kafka properties (optional)
-        bootstrap.servers: "kafka.test:9092"
+        bootstrap.servers: "kafka:9092"
