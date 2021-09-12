@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git curl wget zip unzip vim openssl \
     libgd3 libgd-dev libwebp-dev libpq-dev libmagickwand-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev \
-    nghttp2 libhiredis-dev libmemcached-dev pkg-config zlib1g-dev librdkafka-dev libtidy-dev libmcrypt-dev && \
+    nghttp2 libhiredis-dev libmemcached-dev pkg-config zlib1g-dev librdkafka-dev libtidy-dev libmcrypt-dev ssh && \
     apt-get -y autoremove && apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -31,3 +31,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Add Config
 ADD ./config/php.ini /usr/local/etc/php/conf.d/php.ini
 ADD ./config/php-fpm.conf /usr/local/etc/php-fpm.d/php-fpm.conf
+
+COPY keys.sh /root
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root/.ssh
