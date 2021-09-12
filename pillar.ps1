@@ -1,5 +1,5 @@
 # pillar.ps1
-# Usage: ./pillar.ps1 command container
+# Usage: ./pillar.ps1 command container project
 
 param( [Parameter(Mandatory=$true)] $command, $container="php80", $project=$null)
 
