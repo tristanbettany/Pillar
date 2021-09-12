@@ -15,7 +15,7 @@ RUN wget http://pear.php.net/go-pear.phar && \
     php go-pear.phar
 RUN pecl channel-update pecl.php.net
 RUN pecl install xdebug mcrypt memcached rdkafka imagick
-RUN docker-php-ext-enable xdebug mcrypt memcached imagick opcache sodium rdkafka
+RUN docker-php-ext-enable xdebug mcrypt memcached imagick sodium rdkafka
 
 # Install GD
 RUN docker-php-ext-configure gd --with-webp --with-jpeg
