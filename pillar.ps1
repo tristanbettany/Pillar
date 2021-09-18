@@ -45,20 +45,30 @@ If ($command -eq "bash") {
     docker container exec -it -w /repos $container bash
 }
 
+If ($command -eq "project-bash") {
+    docker container exec -it -w /repos/$project $container bash
+}
+
 If ($command -eq "composer-install") {
     If ($project -ne $null) {
-        docker container exec -it -w $project $container composer install
+        docker container exec -it -w /repos/$project $container composer install
     }
 }
 
 If ($command -eq "composer-update") {
     If ($project -ne $null) {
-        docker container exec -it -w /repos/$project $container composer install
+        docker container exec -it -w /repos/$project $container composer update
     }
 }
 
 If ($command -eq "composer-dump") {
     If ($project -ne $null) {
         docker container exec -it -w /repos/$project $container composer dump-autoload
+    }
+}
+
+If ($command -eq "test") {
+    If ($project -ne $null) {
+        docker container exec -it -w /repos/$project $container ./vendor/bin/phpunit
     }
 }
