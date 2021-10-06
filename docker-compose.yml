@@ -158,6 +158,22 @@ services:
       - dns_private
       - kafka
 
+  sysops:
+    container_name: sysops
+    build:
+      context: ./containers/sysops
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ${REPOS_DIR:-./repos}:/repos
+      - ${SSH_DIR:-~/.ssh}:/ssh:ro
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.26
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+
 networks:
   skynet:
     driver: bridge
