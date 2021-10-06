@@ -12,10 +12,10 @@ This project is designed for windows users so the following instructions are wri
 - Mysql
 - Dnsmasq (for automatic DNS)
 - Mailhog
-- Node
 - Kafka
 - Zookeeper
 - AKHQ
+- Sysops container (AWS tools, NVM, Node & Serverless CLI)
 
 ## Setup
 
