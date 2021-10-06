@@ -7,6 +7,7 @@ function Keys {
     docker container exec -w /root php80 ./keys.sh
     docker container exec -w /root php74 ./keys.sh
     docker container exec -w /root node ./keys.sh
+    docker container exec -w /root sysops ./keys.sh
 
     Write-Output "Updated containers keys"
 }
@@ -42,11 +43,11 @@ If ($command -eq "start") {
 }
 
 If ($command -eq "bash") {
-    docker container exec -it -w /repos $container bash
+    docker container exec -it -w /repos $container bash -l
 }
 
 If ($command -eq "project-bash") {
-    docker container exec -it -w /repos/$project $container bash
+    docker container exec -it -w /repos/$project $container bash -l
 }
 
 If ($command -eq "composer-install") {
