@@ -1,3 +1,4 @@
 .idea
 .env
 resources/ca
+resources/s3
