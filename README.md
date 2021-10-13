@@ -16,6 +16,7 @@ This project is designed for windows users so the following instructions are wri
 - Zookeeper
 - AKHQ
 - Sysops container (AWS tools, NVM, Node & Serverless CLI)
+- Minio (For faking AWS S3)
 
 ## Setup
 
