@@ -15,7 +15,7 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh
     # Allow npm to run as root
     && npm config set user 0 && npm config set unsafe-perm true \
     # Install Serverless npm package
-    && npm install -g serverless
+    && npm install -g serverless serverless-domain-manager
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
