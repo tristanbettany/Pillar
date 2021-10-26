@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-utils build-essential software-properties-common git curl zip unzip openssl vim ssh && \
+    apt-utils build-essential software-properties-common git curl zip unzip openssl vim ssh less && \
     apt-get -y autoremove && apt-get -y autoclean
 
 # Install NVM with Node LTS, Also install any node packages
