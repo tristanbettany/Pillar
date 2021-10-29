@@ -42,11 +42,11 @@ If ($command -eq "start") {
     Keys
 }
 
-If ($command -eq "bash") {
+If ($command -eq "terminal") {
     docker container exec -it -w /repos $container bash -l
 }
 
-If ($command -eq "project-bash") {
+If ($command -eq "project-terminal") {
     docker container exec -it -w /repos/$project $container bash -l
 }
 
