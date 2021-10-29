@@ -2,18 +2,29 @@ FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-utils build-essential software-properties-common git curl zip unzip openssl vim ssh less && \
+    apt-utils build-essential software-properties-common git curl zip unzip openssl vim ssh less zsh && \
     apt-get -y autoremove && apt-get -y autoclean
 
-# Install NVM with Node LTS, Also install any node packages
-RUN curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | sh \
-    && export NVM_DIR="$HOME/.nvm" \
-    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-    # Install Node LTS using NVM
-    && nvm install --lts \
-    # Allow npm to run as root
-    && npm config set user 0 && npm config set unsafe-perm true \
+# NVM / Node
+RUN mkdir /usr/local/nvm
+
+ENV NODE_VERSION 16.13.0
+ENV NVM_DIR /usr/local/nvm
+ENV NVM_INSTALL_PATH $NVM_DIR/versions/node/v$NODE_VERSION
+
+RUN curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default
+
+ENV NODE_PATH $NVM_INSTALL_PATH/lib/node_modules
+ENV PATH $NVM_INSTALL_PATH/bin:$PATH
+
+RUN npm config set user 0 && npm config set unsafe-perm true \
     # Install Serverless npm package
     && npm install -g serverless serverless-domain-manager
 
