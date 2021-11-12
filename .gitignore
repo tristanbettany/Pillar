@@ -2,3 +2,4 @@
 .env
 resources/ca
 resources/s3
+.directory
