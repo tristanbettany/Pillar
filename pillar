@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+function stackHelp {
+	echo ""
+	echo "  Pillar help"
+	echo ""
+	echo "      help                                            Display this help information"
+	echo "      build                                           Build up stack"
+	echo "      rebuild                                         Bring down stack, removing volumes, and build back up"
+	echo "      remove                                          Bring down stack, removing volumes"
+	echo "      restart                                         Stop and start stack"
+	echo "      stop                                            Stop stack"
+	echo "      start                                           Start stack"
+	echo "      terminal {container}                            Get a terminal in a given container"
+	echo "      composer {script} {project} {container}         Get a terminal in a given container"
+	echo ""
+}
+
+function stackKeys {
+	docker container exec -w /root php80 ./keys.sh
+    docker container exec -w /root php74 ./keys.sh
+    docker container exec -w /root node ./keys.sh
+    docker container exec -w /root sysops ./keys.sh
+}
+
+function buildStack {
+	docker-compose up -d --build
+    stackKeys
+}
+
+function rebuildStack {
+	docker-compose down -v
+    docker-compose up -d --build
+    stackKeys
+}
+
+function removeStack {
+	docker-compose down -v
+}
+
+function restartStack {
+	docker-compose down
+    docker-compose up -d
+    stackKeys
+}
+
+function stopStack {
+	docker-compose down
+}
+
+function startStack {
+	docker-compose up -d
+    stackKeys
+}
+
+function stackTerminal {
+	docker container exec -it -w /repos $2 bash -l
+}
+
+function stackComposer {
+	docker container exec -it -w /repos/$3 $4 composer $2
+}
+
+case $1 in
+
+	help)
+		stackHelp
+		;;
+
+	build)
+		buildStack
+		;;
+
+	rebuild)
+		rebuildStack
+		;;
+
+	remove)
+		removeStack
+		;;
+
+	restart)
+		restartStack
+		;;
+
+	stop)
+		stopStack
+		;;
+
+	start)
+		startStack
+		;;
+
+	terminal)
+		stackTerminal
+		;;
+
+	composer)
+		stackComposer
+		;;
+
+	*)
+		stackHelp
+		;;
+esac
