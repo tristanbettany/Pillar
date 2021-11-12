@@ -2,7 +2,8 @@
 
 A simple and easy to use PHP development stack targeted towards development of microservices with apache kafka
 
-This project is designed for windows users so the following instructions are written assuming you are using windows.
+This project has now been made compatible on both windows and linux. For linux users there is a bash script for interacting with the stack
+and for windows users there is a PS1 script.
 
 ## Whats included
 
@@ -23,17 +24,27 @@ This project is designed for windows users so the following instructions are wri
 Simply clone the repo and then copy the `.env.dist` file to `.env` and change the `REPOS_DIR` value. This will be the 
 folder on your host where you have your repos or projects you are currently working on.
 
-Now... so long as you have docker installed and running, you can type in powershell:
+Now... so long as you have docker installed and running, you can type the following:
+
+### Windows
 
 ```
 ./pillar.ps1 build
 ```
 
-You may get a warning about enabling script execution which is fine, if your concerned about that then read the code first
+### Linux
+
+```
+sudo ./pillar build
+```
+
+In windows you may get a warning about enabling script execution which is fine, if your concerned about that then read the code first
 or just execute docker commands directly.
 
-Once built you can use the stack via the commands in the PS1 script or you can download my TrayController here
+Once built you can use the stack via the commands in your script of choice or you can download my TrayController here
 which has built in support for controlling Pillar direct from your tray - https://github.com/tristanbettany/TrayController
+
+Currently TrayController is only supported in WIndows
 
 ## URLs & DNS
 
