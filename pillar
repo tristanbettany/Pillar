@@ -12,7 +12,7 @@ function stackHelp {
 	echo "      stop                                            Stop stack"
 	echo "      start                                           Start stack"
 	echo "      terminal {container}                            Get a terminal in a given container"
-	echo "      composer {script} {project} {container}         Get a terminal in a given container"
+	echo "      composer {script} {project} {container}         Run a composer script in a project on a given container"
 	echo ""
 }
 
