@@ -17,48 +17,48 @@ function stackHelp {
 }
 
 function stackKeys {
-	docker container exec -w /root php80 ./keys.sh
-    docker container exec -w /root php74 ./keys.sh
-    docker container exec -w /root node ./keys.sh
-    docker container exec -w /root sysops ./keys.sh
+	sudo docker container exec php80 bash /root/keys.sh
+    sudo docker container exec php74 bash /root/keys.sh
+    sudo docker container exec node bash /root/keys.sh
+    sudo docker container exec sysops bash /root/keys.sh
 }
 
 function buildStack {
-	docker-compose up -d --build
+	sudo docker-compose up -d --build
     stackKeys
 }
 
 function rebuildStack {
-	docker-compose down -v
-    docker-compose up -d --build
+	sudo docker-compose down -v
+    sudo docker-compose up -d --build
     stackKeys
 }
 
 function removeStack {
-	docker-compose down -v
+	sudo docker-compose down -v
 }
 
 function restartStack {
-	docker-compose down
-    docker-compose up -d
+	sudo docker-compose down
+    sudo docker-compose up -d
     stackKeys
 }
 
 function stopStack {
-	docker-compose down
+	sudo docker-compose down
 }
 
 function startStack {
-	docker-compose up -d
+	sudo docker-compose up -d
     stackKeys
 }
 
 function stackTerminal {
-	docker container exec -it -w /repos $2 bash -l
+	sudo docker container exec -it -w /repos $1 bash -l
 }
 
 function stackComposer {
-	docker container exec -it -w /repos/$3 $4 composer $2
+	sudo docker container exec -it -w /repos/$2 $3 composer $1
 }
 
 case $1 in
@@ -92,11 +92,11 @@ case $1 in
 		;;
 
 	terminal)
-		stackTerminal
+		stackTerminal "$2"
 		;;
 
 	composer)
-		stackComposer
+		stackComposer "$2" "$3" "$4"
 		;;
 
 	*)
