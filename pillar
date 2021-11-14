@@ -17,48 +17,48 @@ function stackHelp {
 }
 
 function stackKeys {
-	sudo docker container exec php80 bash /root/keys.sh
-    sudo docker container exec php74 bash /root/keys.sh
-    sudo docker container exec node bash /root/keys.sh
-    sudo docker container exec sysops bash /root/keys.sh
+	docker container exec php80 bash /root/keys.sh
+    docker container exec php74 bash /root/keys.sh
+    docker container exec node bash /root/keys.sh
+    docker container exec sysops bash /root/keys.sh
 }
 
 function buildStack {
-	sudo docker-compose up -d --build
+	docker-compose up -d --build
     stackKeys
 }
 
 function rebuildStack {
-	sudo docker-compose down -v
-    sudo docker-compose up -d --build
+	docker-compose down -v
+    docker-compose up -d --build
     stackKeys
 }
 
 function removeStack {
-	sudo docker-compose down -v
+	docker-compose down -v
 }
 
 function restartStack {
-	sudo docker-compose down
-    sudo docker-compose up -d
+	docker-compose down
+    docker-compose up -d
     stackKeys
 }
 
 function stopStack {
-	sudo docker-compose down
+	docker-compose down
 }
 
 function startStack {
-	sudo docker-compose up -d
+	docker-compose up -d
     stackKeys
 }
 
 function stackTerminal {
-	sudo docker container exec -it -w /repos $1 bash -l
+	docker container exec -it -w /repos $1 bash -l
 }
 
 function stackComposer {
-	sudo docker container exec -it -w /repos/$2 $3 composer $1
+	docker container exec -it -w /repos/$2 $3 composer $1
 }
 
 case $1 in
