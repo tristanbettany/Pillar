@@ -1,6 +1,10 @@
 FROM php:7.4-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
+ARG USER_NAME
+ARG GROUP_NAME
+ARG USER_ID
+ARG GROUP_ID
 
 # Install Libs
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -32,6 +36,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ADD ./config/php.ini /usr/local/etc/php/conf.d/php.ini
 ADD ./config/php-fpm.conf /usr/local/etc/php-fpm.d/php-fpm.conf
 
-COPY keys.sh /root
-RUN mkdir -p /root/.ssh && \
-    chmod 0700 /root/.ssh
+RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} && useradd ${USER_NAME} -u ${USER_ID} -g ${USER_ID} -m -s /bin/bash

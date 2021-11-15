@@ -42,11 +42,17 @@ services:
     container_name: php80
     build:
       context: ./containers/php/80
+      args:
+        - USER_NAME=${USER_NAME}
+        - GROUP_NAME=${GROUP_NAME}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
     restart: 'always'
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
-      - ${SSH_DIR:-~/.ssh}:/ssh:ro
+      - ${SSH_DIR:-~/.ssh}:/home/${USER_NAME}/.ssh
     working_dir: /repos
+    user: ${USER_ID}:${GROUP_ID}
     networks:
       skynet:
         ipv4_address: 10.0.10.80
@@ -58,11 +64,17 @@ services:
     container_name: php74
     build:
       context: ./containers/php/74
+      args:
+        - USER_NAME=${USER_NAME}
+        - GROUP_NAME=${GROUP_NAME}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
     restart: 'always'
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
-      - ${SSH_DIR:-~/.ssh}:/ssh:ro
+      - ${SSH_DIR:-~/.ssh}:/home/${USER_NAME}/.ssh
     working_dir: /repos
+    user: ${USER_ID}:${GROUP_ID}
     networks:
       skynet:
         ipv4_address: 10.0.10.74
@@ -104,9 +116,10 @@ services:
     restart: 'always'
     ports:
       - 8080:8080
+    user: ${USER_ID}:${GROUP_ID}
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
-      - ${SSH_DIR:-~/.ssh}:/ssh:ro
+      - ${SSH_DIR:-~/.ssh}:/home/node/.ssh
     networks:
       skynet:
         ipv4_address: 10.0.10.22
@@ -166,7 +179,7 @@ services:
     tty: true
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
-      - ${SSH_DIR:-~/.ssh}:/ssh:ro
+      - ${SSH_DIR:-~/.ssh}:/root/.ssh
     networks:
       skynet:
         ipv4_address: 10.0.10.26

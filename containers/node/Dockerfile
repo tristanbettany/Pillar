@@ -8,10 +8,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get -y autoremove && apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY keys.sh /root
-RUN mkdir -p /root/.ssh && \
-    chmod 0700 /root/.ssh
-
 WORKDIR /usr/src/app
 
 ADD ./package*.json ./

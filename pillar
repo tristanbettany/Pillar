@@ -16,22 +16,13 @@ function stackHelp {
 	echo ""
 }
 
-function stackKeys {
-	docker container exec php80 bash /root/keys.sh
-    docker container exec php74 bash /root/keys.sh
-    docker container exec node bash /root/keys.sh
-    docker container exec sysops bash /root/keys.sh
-}
-
 function buildStack {
 	docker-compose up -d --build
-    stackKeys
 }
 
 function rebuildStack {
 	docker-compose down -v
     docker-compose up -d --build
-    stackKeys
 }
 
 function removeStack {
@@ -41,7 +32,6 @@ function removeStack {
 function restartStack {
 	docker-compose down
     docker-compose up -d
-    stackKeys
 }
 
 function stopStack {
@@ -50,7 +40,6 @@ function stopStack {
 
 function startStack {
 	docker-compose up -d
-    stackKeys
 }
 
 function stackTerminal {
