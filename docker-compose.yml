@@ -93,7 +93,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-      - mysql_data:/var/lib/mysql
+      - mysql:/var/lib/mysql
     networks:
       skynet:
         ipv4_address: 10.0.10.21
@@ -175,11 +175,17 @@ services:
     container_name: sysops
     build:
       context: ./containers/sysops
+      args:
+        - USER_NAME=${USER_NAME}
+        - GROUP_NAME=${GROUP_NAME}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
     restart: unless-stopped
     tty: true
+    user: ${USER_ID}:${GROUP_ID}
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
-      - ${SSH_DIR:-~/.ssh}:/root/.ssh
+      - ${SSH_DIR:-~/.ssh}:/home/${USER_NAME}/.ssh
     networks:
       skynet:
         ipv4_address: 10.0.10.26
@@ -216,4 +222,4 @@ networks:
         - subnet: 10.0.10.0/24
 
 volumes:
-  mysql_data:
+  mysql:
