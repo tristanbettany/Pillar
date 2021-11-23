@@ -22,7 +22,7 @@ function buildStack {
 
 function rebuildStack {
 	docker-compose down -v
-    docker-compose up -d --build
+  docker-compose up -d --build
 }
 
 function removeStack {
@@ -31,7 +31,7 @@ function removeStack {
 
 function restartStack {
 	docker-compose down
-    docker-compose up -d
+  docker-compose up -d
 }
 
 function stopStack {
