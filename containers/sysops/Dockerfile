@@ -9,7 +9,7 @@ ARG GROUP_ID
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-utils build-essential software-properties-common git curl zip unzip openssl vim ssh less zsh && \
+    apt-utils build-essential gnupg software-properties-common git curl zip unzip openssl vim ssh less zsh && \
     apt-get -y autoremove && apt-get -y autoclean
 
 RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} \
@@ -19,6 +19,13 @@ RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} \
 # NVM / Node
 RUN runuser -l ${USER_NAME} -c "curl --silent -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash"
 RUN runuser -l ${USER_NAME} -c "source ~/.nvm/nvm.sh && nvm install --lts && npm install -g serverless serverless-domain-manager"
+
+# Install Terraform
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - \
+    && apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
+    && apt-get update && apt-get install terraform
+
+RUN runuser -l ${USER_NAME} -c "terraform -install-autocomplete"
 
 # Install Kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
