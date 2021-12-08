@@ -48,6 +48,8 @@ services:
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
     restart: 'always'
+    ports:
+      - 1337:1337
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
       - ${SSH_DIR:-~/.ssh}:/home/${USER_NAME}/.ssh
@@ -70,6 +72,8 @@ services:
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
     restart: 'always'
+    ports:
+      - 1338:1338
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
       - ${SSH_DIR:-~/.ssh}:/home/${USER_NAME}/.ssh
