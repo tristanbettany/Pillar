@@ -16,7 +16,7 @@ and for windows users there is a PS1 script.
 - Kafka
 - Zookeeper
 - AKHQ
-- Sysops container (AWS tools, NVM, Node & Serverless CLI)
+- Sysops container (AWS tools, Digital Ocean CLI, NVM, Node & Serverless CLI, Terraform)
 - Minio (For faking AWS S3)
 
 ## Setup
@@ -54,6 +54,6 @@ where the `80` is the version of php you want.
 
 ## SSL
 
-A quick note about SSL. After building a `pillar.crt` file will be generated in `resources/ca`. You want to import that 
+A quick note about SSL. After building a `pillar-ca.pem` file will be generated in `resources/ca`. You want to import that 
 file into your browser SSL certificates under `Trusted Root Certification Authorities`. This means you wont then get any warnings
 about SSL in the browser.
