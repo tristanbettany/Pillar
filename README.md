@@ -18,6 +18,7 @@ and for windows users there is a PS1 script.
 - AKHQ
 - Sysops container (AWS tools, Digital Ocean CLI, NVM, Node & Serverless CLI, Terraform)
 - Minio (For faking AWS S3)
+- DynamoDB
 
 ## Setup
 
@@ -57,3 +58,12 @@ where the `80` is the version of php you want.
 A quick note about SSL. After building a `pillar-ca.pem` file will be generated in `resources/ca`. You want to import that 
 file into your browser SSL certificates under `Trusted Root Certification Authorities`. This means you wont then get any warnings
 about SSL in the browser.
+
+## DynamoDB
+
+There's a container to use dynamodb locally and a small shell script to make some regular commands for interacting with it a little simpler.
+For example when in the sysops container you can use this command to create a dynamodb table with an id
+
+```
+ddb create-table test AttributeName=id,AttributeType=S AttributeName=id,KeyType=HASH
+```

@@ -28,6 +28,7 @@ services:
     build:
       context: ./containers/nginx
     restart: 'always'
+    working_dir: /repos
     volumes:
       - ${REPOS_DIR:-./repos}:/repos
       - ./resources/ca:/ca
@@ -117,6 +118,7 @@ services:
     container_name: node
     build:
       context: ./containers/node
+    working_dir: /repos
     restart: 'always'
     ports:
       - 8080:8080
@@ -184,6 +186,10 @@ services:
         - GROUP_NAME=${GROUP_NAME}
         - USER_ID=${USER_ID}
         - GROUP_ID=${GROUP_ID}
+        - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+        - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+        - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+    working_dir: /repos
     restart: unless-stopped
     tty: true
     user: ${USER_ID}:${GROUP_ID}
@@ -196,6 +202,9 @@ services:
     dns: 10.0.10.10
     depends_on:
       - dns_private
+      - dynamodb
+    links:
+      - dynamodb
 
   s3:
     container_name: s3
@@ -216,6 +225,22 @@ services:
     depends_on:
       - dns_private
 
+  dynamodb:
+    container_name: dynamodb
+    build:
+      context: ./containers/dynamodb
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data"
+    volumes:
+      - dynamodb-data:/home/dynamodblocal/data
+    ports:
+      - 8000:8000
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.28
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+
 networks:
   skynet:
     driver: bridge
@@ -227,3 +252,4 @@ networks:
 
 volumes:
   mysql:
+  dynamodb-data:

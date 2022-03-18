@@ -43,7 +43,7 @@ function startStack {
 }
 
 function stackTerminal {
-	docker container exec -it -w /repos $1 bash -l
+    docker container exec -it $1 bash -l
 }
 
 function stackComposer {

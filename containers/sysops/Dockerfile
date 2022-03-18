@@ -5,6 +5,9 @@ ARG USER_NAME
 ARG GROUP_NAME
 ARG USER_ID
 ARG GROUP_ID
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG AWS_DEFAULT_REGION
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -50,3 +53,10 @@ RUN curl -fsSL -o doctl.tar.gz https://github.com/digitalocean/doctl/releases/do
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip && ./aws/install
+
+RUN runuser -l ${USER_NAME} -c "aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID"
+RUN runuser -l ${USER_NAME} -c "aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY"
+RUN runuser -l ${USER_NAME} -c "aws configure set region $AWS_DEFAULT_REGION"
+RUN runuser -l ${USER_NAME} -c "aws configure set output json"
+
+ADD ./scripts/ddb /usr/local/bin
