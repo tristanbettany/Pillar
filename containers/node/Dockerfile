@@ -8,12 +8,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get -y autoremove && apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR /usr/src/app
+ADD ./package*.json /usr/src/app/
+ADD ./server.js /usr/src/app/
 
-ADD ./package*.json ./
-ADD ./server.js ./
-
-RUN npm install
+RUN cd /usr/src/app && npm install
 
 EXPOSE 8080
-CMD [ "node", "server.js" ]
+CMD [ "node", "/usr/src/app/server.js" ]
