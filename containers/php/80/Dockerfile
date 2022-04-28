@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get -y autoremove && apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN docker-php-ext-install soap
+
 # Install Pear Extensions
 RUN wget http://pear.php.net/go-pear.phar && \
     php go-pear.phar
