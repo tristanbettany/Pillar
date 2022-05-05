@@ -87,6 +87,28 @@ services:
     depends_on:
       - dns_private
 
+  php70:
+    container_name: php70
+    build:
+      context: ./containers/php/70
+      args:
+        - USER_NAME=${USER_NAME}
+        - GROUP_NAME=${GROUP_NAME}
+        - USER_ID=${USER_ID}
+        - GROUP_ID=${GROUP_ID}
+    restart: 'always'
+    volumes:
+      - ${REPOS_DIR:-./repos}:/repos
+      - ${SSH_DIR:-~/.ssh}:/home/${USER_NAME}/.ssh
+    working_dir: /repos
+    user: ${USER_ID}:${GROUP_ID}
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.70
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+
   mysql:
     container_name: mysql
     build:
@@ -237,6 +259,19 @@ services:
     networks:
       skynet:
         ipv4_address: 10.0.10.28
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+
+  redis:
+    container_name: redis
+    build:
+      context: ./containers/redis
+    ports:
+      - 6379:6379
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.29
     dns: 10.0.10.10
     depends_on:
       - dns_private
