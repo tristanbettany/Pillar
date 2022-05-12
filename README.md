@@ -2,13 +2,13 @@
 
 A simple and easy to use PHP development stack targeted towards development of microservices with apache kafka
 
-This project has now been made compatible on both windows and linux. For linux users there is a bash script for interacting with the stack
-and for windows users there is a PS1 script.
+> Direct Windows support has been removed due to ongoing issues with file permissions in mounted volumes. Windows will still work however you will need to use within WSL2 instead
 
 ## Whats included
 
-- PHP 8
+- PHP 8.0
 - PHP 7.4
+- PHP 7.0 (For legacy applications)
 - Node
 - Mysql
 - Dnsmasq (for automatic DNS)
@@ -23,29 +23,19 @@ and for windows users there is a PS1 script.
 ## Setup
 
 Simply clone the repo and then copy the `.env.dist` file to `.env` and change the `REPOS_DIR` value. This will be the 
-folder on your host where you have your repos or projects you are currently working on.
+folder on your host where you have your repos or projects you are currently working on. You can add your AWS keys for the sysops container in this file too. 
 
 Now... so long as you have docker installed and running, you can type the following:
 
-### Windows
-
 ```
-./pillar.ps1 build
+./pillar build
 ```
 
-### Linux
+Once built you can use the stack via the commands in your script of choice. 
 
-```
-sudo ./pillar build
-```
+You can also download my windows TrayController here which has built in support for controlling Pillar direct from your windows tray - https://github.com/tristanbettany/TrayController
 
-In windows you may get a warning about enabling script execution which is fine, if your concerned about that then read the code first
-or just execute docker commands directly.
-
-Once built you can use the stack via the commands in your script of choice or you can download my TrayController here
-which has built in support for controlling Pillar direct from your tray - https://github.com/tristanbettany/TrayController
-
-Currently TrayController is only supported in WIndows
+> Note: this most likley needs to be updated due to the recent removal of direct windows support
 
 ## URLs & DNS
 
@@ -61,8 +51,7 @@ about SSL in the browser.
 
 ## DynamoDB
 
-There's a container to use dynamodb locally and a small shell script to make some regular commands for interacting with it a little simpler.
-For example when in the sysops container you can use this command to create a dynamodb table with an id
+There's a container to use dynamodb locally and a small shell script to make some regular commands for interacting with it a little simpler. For example when in the sysops container you can use this command to create a dynamodb table on the dynamodb container with just an id
 
 ```
 ddb create-table test AttributeName=id,AttributeType=S AttributeName=id,KeyType=HASH
