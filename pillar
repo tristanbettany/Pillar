@@ -17,29 +17,29 @@ function stackHelp {
 }
 
 function buildStack {
-	docker-compose up -d --build
+	docker compose up -d --build
 }
 
 function rebuildStack {
-	docker-compose down -v
-  docker-compose up -d --build
+	docker compose down -v
+    docker compose up -d --build
 }
 
 function removeStack {
-	docker-compose down -v
+	docker compose down -v
 }
 
 function restartStack {
-	docker-compose down
-  docker-compose up -d
+	docker compose down
+    docker compose up -d
 }
 
 function stopStack {
-	docker-compose down
+	docker compose down
 }
 
 function startStack {
-	docker-compose up -d
+	docker compose up -d
 }
 
 function stackTerminal {
