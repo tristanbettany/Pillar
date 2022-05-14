@@ -276,6 +276,20 @@ services:
     depends_on:
       - dns_private
 
+  privoxy:
+    container_name: privoxy
+    build:
+      context: ./containers/privoxy
+    ports:
+      - 8118:8118
+    restart: 'unless-stopped'
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.30
+    dns: 10.0.10.10
+    depends_on:
+      - dns_private
+
 networks:
   skynet:
     driver: bridge

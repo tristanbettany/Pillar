@@ -1,0 +1,1 @@
+FROM splazit/privoxy-alpine:latest
