@@ -19,6 +19,7 @@ A simple and easy to use PHP development stack targeted towards development of m
 - Sysops container (AWS tools, Digital Ocean CLI, NVM, Node & Serverless CLI, Terraform)
 - Minio (For faking AWS S3)
 - DynamoDB
+- Privoxy
 
 ## Setup
 
@@ -56,3 +57,19 @@ There's a container to use dynamodb locally and a small shell script to make som
 ```
 ddb create-table test AttributeName=id,AttributeType=S AttributeName=id,KeyType=HASH
 ```
+
+## Privoxy & Remote Working Privacy
+
+> Pre-note: I am not opposed to companies using traffic sniffing VPNs for "security" at all, but often the security, privacy and efficiency of the developers workflow is not taken into account when implimenting company wide processes such as VPNs. The following helps developers to deal with such scenarios.
+
+Privoxy has been installed to help with the workflow and privacy of any remote developer in a company which requires them to connect to traffic sniffing VPNs. This can comprimise the safety and privacy of the employee and negativley affect efficiency by requiring them to switch between multiple devices when working to save comprimising personal logins. 
+
+A perfect example of developers using personal accounts for work is due to the fact that developers are generally rather unique, in that they tend to have large amounts of personal code which can be quickly re-used or referenced on personal version control accounts. All developers generally do this to assist in efficincy and improve their quality and quantity of output at work. (I dont think this is really a closley guarded secret in the community right?)
+
+*So.... whats the easiest way both parties can have what they want here?...*
+
+A Privoxy Container is included in this stack exposed on port 8118. you can run this stack on the machine you need to VPN your traffic through and then on your "kiosk" development machine use firefox to proxy your traffic through it. All your other applications other than firefox will go directly to the normal internet and firefox will go through privoxy and then off to the VPN. *Win Win*
+
+You can also SSH from your "kisok" machine to the machine with this stack installed on to use the CLI and do anything else atall.
+
+You can also install something like the PHPStorm backend on the machine this stack is installed on and then use the PHPStorm client from your "kisok" machine to assure that all your code stays on the right machine and the security of the companies code is safe while you also maintain your privacy.
