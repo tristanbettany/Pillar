@@ -32,6 +32,8 @@ Now... so long as you have docker installed and running, you can type the follow
 ./pillar build
 ```
 
+> WARNING: sudo usage... Do not run this command with sudo as docker commands would then run under the wrong user and all hell will break loose. You will still be asked for your password as in the pillar commands sudo is used to set the dns automatically of your connection to use pillar saving you have to do it yourself.
+
 Once built you can use the stack via the commands in your script of choice. 
 
 You can also download my windows TrayController here which has built in support for controlling Pillar direct from your windows tray - https://github.com/tristanbettany/TrayController
