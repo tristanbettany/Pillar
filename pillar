@@ -16,30 +16,48 @@ function stackHelp {
 	echo ""
 }
 
+function setDns {
+	# theres not a huge garuntee this would work
+	# on other machines due to the link defined as number 2 
+	# but thats a problem for another day
+	sudo resolvectl dns 2 $1
+	resolvectl flush-caches
+}
+
 function buildStack {
+	setDns "84.200.69.80"
 	docker compose up -d --build
+	setDns "127.0.0.1"
 }
 
 function rebuildStack {
 	docker compose down -v
-    docker compose up -d --build
+	setDns "84.200.69.80"
+	docker compose up -d --build
+	setDns "127.0.0.1"
 }
 
 function removeStack {
 	docker compose down -v
+	setDns "84.200.69.80"
 }
 
 function restartStack {
 	docker compose down
+	setDns "84.200.69.80"
     docker compose up -d
+	setDns "127.0.0.1"
 }
 
 function stopStack {
 	docker compose down
+	setDns "84.200.69.80"
 }
 
 function startStack {
+	setDns "84.200.69.80"
 	docker compose up -d
+	setDns "127.0.0.1"
 }
 
 function stackTerminal {
