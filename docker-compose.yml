@@ -8,7 +8,7 @@ services:
     restart: 'always'
     ports:
       - 5352:8080
-    dns: 1.1.1.1
+    dns: ${PUBLIC_DNS_IP}
     networks:
       skynet:
         ipv4_address: 10.0.10.10
@@ -21,7 +21,7 @@ services:
     ports:
       - 127.0.0.1:53:53/udp
       - 5353:8080
-    dns: 1.1.1.1
+    dns: ${PUBLIC_DNS_IP}
 
   nginx:
     container_name: nginx
