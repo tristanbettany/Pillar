@@ -13,6 +13,7 @@ function stackHelp {
 	echo "      start                                           Start stack"
 	echo "      terminal {container}                            Get a terminal in a given container"
 	echo "      composer {script} {project} {container}         Run a composer script in a project on a given container"
+	echo "      dns {ip}                                        Sets the dns for link 2 on your machine"
 	echo ""
 }
 
@@ -104,6 +105,10 @@ case $1 in
 
 	composer)
 		stackComposer "$2" "$3" "$4"
+		;;
+
+	dns)
+		setDns "$2"
 		;;
 
 	*)
