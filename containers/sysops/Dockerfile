@@ -40,12 +40,12 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
     && ./get_helm.sh
 
 # Install helmfile
-RUN curl -fsSL -o helmfile https://github.com/roboll/helmfile/releases/download/v0.141.0/helmfile_linux_arm64 \
+RUN curl -fsSL -o helmfile https://github.com/roboll/helmfile/releases/download/v0.144.0/helmfile_linux_amd64 \
     && chmod +x ./helmfile \
     && mv helmfile /usr/local/bin/helmfile
 
 # Install Digital Ocean Tool
-RUN curl -fsSL -o doctl.tar.gz https://github.com/digitalocean/doctl/releases/download/v1.65.0/doctl-1.65.0-linux-amd64.tar.gz \
+RUN curl -fsSL -o doctl.tar.gz https://github.com/digitalocean/doctl/releases/download/v1.76.2/doctl-1.76.2-linux-amd64.tar.gz \
     && tar xf ./doctl.tar.gz \
     && chmod +x ./doctl \
     && mv ./doctl /usr/local/bin/doctl

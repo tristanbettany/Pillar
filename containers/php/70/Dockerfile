@@ -9,7 +9,7 @@ ARG GROUP_ID
 # Install Libs
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git curl wget zip unzip vim openssl \
-    libgd3 libgd-dev libwebp-dev libpq-dev libmagickwand-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev \
+    libgd3 libgd-dev libwebp-dev libpq-dev libmagickwand-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev libzmq3-dev \
     nghttp2 libhiredis-dev libmemcached-dev pkg-config zlib1g-dev libtidy-dev libmcrypt-dev ssh && \
     apt-get -y autoremove && apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -22,6 +22,8 @@ RUN wget http://pear.php.net/go-pear.phar && \
 RUN pecl channel-update pecl.php.net
 RUN pecl install memcached imagick
 RUN docker-php-ext-enable memcached imagick
+RUN pecl install zmq-1.1.3
+RUN docker-php-ext-enable zmq
 
 # Install GD
 RUN docker-php-ext-configure gd --with-webp --with-jpeg
