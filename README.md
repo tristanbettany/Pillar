@@ -6,21 +6,28 @@ A simple and easy to use PHP development stack targeted towards development of m
 
 ## Whats included
 
+> Most versions of software are set to use the latest version unless otherwise stated
+
 - PHP 8.0
 - PHP 7.4
 - PHP 7.0 (For legacy applications)
 - Node
 - Mysql (on port 3306)
-- MariaDB (on port 3307)
+- MariaDB 10.2.40  (on port 3307 for legacy applications)
 - Dnsmasq (for automatic DNS)
 - Mailhog
 - Kafka
 - Zookeeper
-- AKHQ
-- Sysops container (AWS tools, Digital Ocean CLI, NVM, Node & Serverless CLI, Terraform)
-- Minio (For faking AWS S3)
-- DynamoDB
-- Privoxy
+- AKHQ (For a nice UI to control kafka)
+- Sysops container 
+    - AWS tools
+    - Digital Ocean CLI
+    - NVM
+    - Node & Serverless CLI
+    - Terraform
+- Minio (For faking AWS S3 locally)
+- DynamoDB (For faking AWS DynamoDB locally)
+- Privoxy (For remote working)
 
 ## Setup
 
