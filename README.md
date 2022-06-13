@@ -10,7 +10,8 @@ A simple and easy to use PHP development stack targeted towards development of m
 - PHP 7.4
 - PHP 7.0 (For legacy applications)
 - Node
-- Mysql
+- Mysql (on port 3306)
+- MariaDB (on port 3307)
 - Dnsmasq (for automatic DNS)
 - Mailhog
 - Kafka

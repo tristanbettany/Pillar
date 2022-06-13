@@ -109,6 +109,21 @@ services:
     depends_on:
       - dns_private
 
+  mariadb:
+    container_name: mariadb
+    build:
+      context: ./containers/mariadb
+    restart: 'always'
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      skynet:
+        ipv4_address: 10.0.10.19
+
   mysql:
     container_name: mysql
     build:
@@ -301,4 +316,5 @@ networks:
 
 volumes:
   mysql:
+  mariadb:
   dynamodb-data:
