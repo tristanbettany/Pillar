@@ -119,6 +119,7 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
+      - ${REPOS_DIR:-./repos}:/repos
       - mariadb:/var/lib/mysql
     networks:
       skynet:
@@ -135,6 +136,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     command: --default-authentication-plugin=mysql_native_password
     volumes:
+      - ${REPOS_DIR:-./repos}:/repos
       - mysql:/var/lib/mysql
     networks:
       skynet:
