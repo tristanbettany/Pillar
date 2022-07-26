@@ -4,5 +4,11 @@ keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = *.80.test
-DNS.2 = *.74.test
+DNS.1 = *.70.test
+DNS.2 = *.71.test
+DNS.3 = *.72.test
+DNS.4 = *.73.test
+DNS.5 = *.74.test
+DNS.6 = *.80.test
+DNS.7 = *.81.test
+DNS.8 = *.82.test
