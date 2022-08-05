@@ -8,10 +8,15 @@ ARG GROUP_ID
 
 # Install Libs
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    git curl wget zip unzip vim openssl \
+    git curl wget zip unzip vim openssl ca-certificates ssh
+
+RUN apt-get upgrade -y --no-install-recommends
+    
+RUN apt-get install -y --no-install-recommends \
     libgd3 libgd-dev libwebp-dev libpq-dev libmagickwand-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev libzmq3-dev \
-    nghttp2 libhiredis-dev libmemcached-dev pkg-config zlib1g-dev libtidy-dev libmcrypt-dev ssh && \
-    apt-get -y autoremove && apt-get -y clean && \
+    nghttp2 libhiredis-dev libmemcached-dev pkg-config zlib1g-dev libtidy-dev libmcrypt-dev 
+
+RUN apt-get -y autoremove && apt-get -y clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN docker-php-ext-install soap mcrypt
