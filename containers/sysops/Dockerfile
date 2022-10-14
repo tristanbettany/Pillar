@@ -12,7 +12,7 @@ ARG AWS_DEFAULT_REGION
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    apt-utils build-essential gnupg software-properties-common git curl zip unzip openssl vim ssh less zsh && \
+    apt-utils build-essential gnupg software-properties-common git curl zip unzip openssl vim ssh less zsh jq && \
     apt-get -y autoremove && apt-get -y autoclean
 
 RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} \
